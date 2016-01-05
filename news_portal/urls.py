@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from news_portal import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.index),
+    url(r'^news/(?P<slug>[^\.]+)', views.view_post, name='view_post'),
+    url(r'^categories/(?P<slug>[^\.]+)', views.view_category, name='view_category'),
 ]
