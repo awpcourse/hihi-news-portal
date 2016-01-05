@@ -10,7 +10,7 @@ class News(models.Model):
     def __unicode__(self):
         return self.title
 
-    @permalink
+    @models.permalink
     def get_absolute_url(self):
         return ('view_blog_post', None, { 'slug': self.slug })
 
@@ -21,6 +21,6 @@ class Category(models.Model):
     def __unicode__(self):
         return self.title
 
-    @permalink
+    @models.permalink
     def get_absolute_url(self):
         return ('view_blog_category', None, { 'slug': self.slug })
