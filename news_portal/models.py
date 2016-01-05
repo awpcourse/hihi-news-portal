@@ -7,6 +7,10 @@ class News(models.Model):
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey('Category')
 
+    class Meta:
+        ordering = ['-posted']
+        verbose_name_plural = 'News'
+
     def __unicode__(self):
         return self.title
 
@@ -17,6 +21,10 @@ class News(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = 'Categories'
 
     def __unicode__(self):
         return self.title
