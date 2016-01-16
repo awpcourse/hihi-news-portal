@@ -42,7 +42,6 @@ class Category(models.Model):
     def get_absolute_url(self):
         return ('view_category', None, { 'slug': self.slug })
 
-
 class NewsComment(models.Model):
     text = models.TextField(max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)

@@ -12,8 +12,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from urllib import urlencode
 from news_portal.models import News, Category, NewsComment
-from news_portal.forms import NewsItemCommentForm
-from news_portal.forms import SearchForm
+from news_portal.forms import NewsItemCommentForm, SearchForm, FilterNewsForm
 
 
 class LoginRequiredMixin(object):
@@ -34,8 +33,10 @@ def index(request):
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     search_form = SearchForm()
+    filter_form = FilterNewsForm()
     context = {
         'search_form': search_form,
+        'filter_form': filter_form,
         'category': category,
         'categories': Category.objects.all(),
         'posts': News.objects.filter(category=category)

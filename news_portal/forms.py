@@ -15,11 +15,15 @@ class UserLoginForm(Form):
 class SearchForm(Form):
     q = CharField(max_length=50, label='')
 
+class FilterNewsForm(Form):
+    date_from = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}), required=True)
+    date_to = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}), required=True)
+
 class MyRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=False)
     last_name = forms.CharField(required=False)
-    birthday = forms.DateField(required=False)
+    birthday = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}),required=False)
 
     class Meta:
         model = User
