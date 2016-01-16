@@ -13,13 +13,6 @@ class News(models.Model):
     def increase_count_hit(self):
         self.count_hit += 1
 
-        """
-        select count_hit into curr_hit from news where id = 1;
-        update news set count_hit = curr_hit + 1;
-
-        update news set count_hit = count_hit + 1;
-        """
-
     class Meta:
         ordering = ['-posted']
         verbose_name_plural = 'News'

@@ -11,6 +11,7 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.db.models import F
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from urllib import urlencode
 from news_portal.models import News, Category, NewsComment
 from news_portal.forms import NewsItemCommentForm
@@ -44,11 +45,15 @@ def index(request):
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     search_form = SearchForm()
+    all_posts = News.objects.filter(category=category)
+    paginator = Paginator(all_posts, 2)
+    page = request.GET.get('page', 1)
+    posts = paginator.page(page)
     context = {
         'search_form': search_form,
         'category': category,
         'categories': Category.objects.all(),
-        'posts': News.objects.filter(category=category)
+        'posts': posts,
     }
     return render(request, 'view_category.html', context)
 

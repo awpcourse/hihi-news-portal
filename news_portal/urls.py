@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^accounts/login$', views.login_view, name='login'),
     url(r'^accounts/logout$', views.logout_view, name='logout'),
     url(r'^account/register$', views.register_user, name='register_user'),
-    url(r'^categories/(?P<slug>[^\.]+)', views.view_category, name='view_category'),
+    url(r'^categories/(?P<slug>[^\.]+)(page-(\d+)/)?$', views.view_category, name='view_category'),
     url(r'^news/(?P<slug>[^\.]+)', views.news_details, name='news_details'),
     url(r'^search', views.search_view, name='search'),
 ]
