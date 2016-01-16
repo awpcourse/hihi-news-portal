@@ -70,9 +70,15 @@
 
     <section id="main-content">
         <div class="container">
-            {% block content %}
+            <div class="row">
+                {% block content %}
 
-            {% endblock %}
+                {% endblock %}
+
+                {% block sidebar %}
+
+                {% endblock %}
+            </div>
         </div>
     </section>
 
