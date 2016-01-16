@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{% block head_title %}Welcome to my blog{% endblock %}</title>
+    <title>{% block title %}Welcome to HiHi news{% endblock %}</title>
 
     {% load staticfiles %}
 
@@ -51,6 +51,20 @@
             </div>
         </div>
     </header><!--/header-->
+
+    <section id="content-title" class="emerald">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>{% block content_title %} {% endblock %}</h1>
+                    <p>{% block content_title_description %} {% endblock %}</p>
+                </div>
+                <div class="col-sm-6">
+                    {% block breadcrumb_trail %} {% endblock %}
+                </div>
+            </div>
+        </div>
+    </section><!--/#title-->
 
     <section id="main-content">
         <div class="container">

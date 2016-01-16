@@ -33,9 +33,11 @@ def view_category(request, slug):
 
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
+    category = Category.objects.get(title=news_item.category)
     if request.method == 'GET':
         form = NewsItemCommentForm()
         context = {
+            'category': category,
             'post': news_item,
             'form': form,
         }
