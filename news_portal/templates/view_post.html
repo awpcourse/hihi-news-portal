@@ -6,7 +6,7 @@
     <ul class="breadcrumb pull-right">
         <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
-        <li class="active">{{ post.category }}</li>
+        <li class="active">{{ post.title }}</li>
     </ul>
 {% endblock %}
 
