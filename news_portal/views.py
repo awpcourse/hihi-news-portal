@@ -6,9 +6,11 @@ from django.core.context_processors import csrf
 from forms import MyRegistrationForm
 from django.shortcuts import render_to_response, get_object_or_404
 from news_portal.forms import UserLoginForm
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render
 from django.db.models import Q
-
+from django.http import HttpResponseRedirect
+from urllib import urlencode
 from news_portal.models import News, Category, NewsComment
 from news_portal.forms import NewsItemCommentForm
 from news_portal.forms import SearchForm
@@ -88,23 +90,22 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
+@csrf_exempt
 def search_view(request):
+    if request.method == 'POST':
+        if 'q' in request.POST:
+            return HttpResponseRedirect("{}?{}".format(
+                    request.META['PATH_INFO'], urlencode({'q': request.POST['q']})))
 
-    context = {}
-
-    if request.method == 'GET':
-        form = SearchForm()
-
-    elif request.method == 'POST':
-        form = SearchForm(request.POST)
-
-        if form.is_valid():
-            text = form.cleaned_data['text']
-            # posts = News.objects.filter(title=text)
-            posts = News.objects.filter(Q(title__contains=text) | Q(body__contains=text))
-            context['posts'] = posts
-
-    context['form'] = form
+    form = SearchForm(request.GET)
+    posts = []
+    if form.is_valid():
+        q = form.cleaned_data['q']
+        posts = News.objects.filter(Q(title__contains=q) | Q(body__contains=q))
+    context = {
+        'form': form,
+        'posts': posts,
+    }
     return render(request, 'search.html', context)
 
 def register_user(request):

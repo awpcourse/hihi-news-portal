@@ -13,7 +13,7 @@ class UserLoginForm(Form):
     password = CharField(widget=PasswordInput)
 
 class SearchForm(Form):
-    text = CharField(max_length=50, label='')
+    q = CharField(max_length=50, label='')
 
 class MyRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -34,5 +34,4 @@ class MyRegistrationForm(UserCreationForm):
 
         if commit:
             user.save()
-
         return user
