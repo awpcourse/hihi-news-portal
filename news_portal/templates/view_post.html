@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content_title %}{{ post.title }}{% endblock %}
+{% block content_title_color %}alizarin{% endblock %}
 
 {% block breadcrumb_trail %}
     <ul class="breadcrumb pull-right">
@@ -19,9 +20,9 @@
                 <div class="blog-content">
                     <h3>{{ post.title }}</h3>
 
-                    <div>{{ post.body }}</div>
+                    <p>{{ post.body }}</p>
 
-                    <div class="tags">
+                    <p class="tags">
                         <span>
                             <i class="icon-tags"></i> Tags
                         </span>
@@ -29,7 +30,7 @@
                         <a class="btn btn-xs btn-primary" href="#">HTML5</a>
                         <a class="btn btn-xs btn-primary" href="#">WordPress</a>
                         <a class="btn btn-xs btn-primary" href="#">Joomla</a>
-                    </div>
+                    </p>
 
                     <div class="author well">
                         <div class="media">
@@ -38,7 +39,7 @@
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <strong>John Doe</strong>
+                                    <strong>{{ post.author }}</strong>
                                 </div>
                                 <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
                             </div>
@@ -74,11 +75,34 @@
                                 </form>
                             </div><!--/#comment-form-->
                         {% endif %}
-
                     </div><!--/#comments-->
                 </div>
             </div><!--/.blog-item-->
         </div>
-    </div><!--/.col-md-8-->
+    </div><!--/.col-sm-8-->
+{% endblock %}
 
+{% block sidebar %}
+    <div class="col-sm-4">
+        <div class="widget search">
+            <form method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                {{ search_form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="widget categories">
+            <h3>Categories</h3>
+            {% if categories %}
+                <ul class="arrow">
+                {% for category in categories %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no categories.</p>
+            {% endif %}
+        </div><!--/.categories-->
+    </div><!--/.col-sm-4-->
 {% endblock %}

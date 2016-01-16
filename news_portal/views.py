@@ -2,6 +2,8 @@
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
+from forms import MyRegistrationForm
 from django.shortcuts import render_to_response, get_object_or_404
 from news_portal.forms import UserLoginForm
 from django.views.decorators.csrf import csrf_exempt
@@ -20,39 +22,36 @@ class LoginRequiredMixin(object):
         view = super(LoginRequiredMixin, cls).as_view(**kwargs)
         return login_required(view)
 
-
 def index(request):
-    form = SearchForm()
-    order = ['decreasing', 'increasing']
-    criteria = ['title','date-added']
+    search_form = SearchForm()
     context = {
-        'order': order,
-        'criteria': criteria,
-        'form': form,
+        'search_form': search_form,
         'categories': Category.objects.all(),
-        'posts': News.objects.all()[:5]
+        'posts': News.objects.all()
     }
-
     return render(request, 'index.html', context)
-
 
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
+    search_form = SearchForm()
     context = {
+        'search_form': search_form,
         'category': category,
+        'categories': Category.objects.all(),
         'posts': News.objects.filter(category=category)
     }
     return render(request, 'view_category.html', context)
 
-
-@login_required
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     category = Category.objects.get(title=news_item.category)
+    search_form = SearchForm()
     if request.method == 'GET':
         form = NewsItemCommentForm()
         context = {
+            'search_form': search_form,
             'category': category,
+            'categories': Category.objects.all(),
             'post': news_item,
             'form': form,
         }
@@ -64,7 +63,6 @@ def news_details(request, slug):
             comment = NewsComment(text=text, news_post=news_item, author=request.user)
             comment.save()
         return redirect('news_details', slug=slug)
-
 
 def login_view(request):
     if request.user.is_authenticated():
@@ -88,7 +86,6 @@ def login_view(request):
             login(request, user)
             return redirect('index')
 
-
 def logout_view(request):
     logout(request)
     return redirect('index')
@@ -110,3 +107,20 @@ def search_view(request):
         'posts': posts,
     }
     return render(request, 'search.html', context)
+
+def register_user(request):
+    if request.user.is_authenticated():
+        return redirect('index')
+    form = None
+    if request.method == 'GET':
+        form = MyRegistrationForm()
+    elif request.method == 'POST':
+        form = MyRegistrationForm(request.POST)  # create form object
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    args = {}
+    args.update(csrf(request))
+    args['form'] = form
+    print args
+    return render(request, 'register_user.html', args)
