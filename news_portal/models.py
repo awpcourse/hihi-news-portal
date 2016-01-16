@@ -65,6 +65,7 @@ class NewsComment(models.Model):
 
     class Meta:
         ordering = ['date_added']
+        verbose_name_plural = 'Comments'
 
     def __unicode__(self):
         return u'{} @ {}'.format(self.author, self.date_added)

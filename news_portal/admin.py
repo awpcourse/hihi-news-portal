@@ -10,3 +10,4 @@ class NewsAdmin(admin.ModelAdmin):
 admin.site.register(models.News, NewsAdmin)
 admin.site.register(models.Category)
 admin.site.register(models.SuggestPost)
+admin.site.register(models.NewsComment)
