@@ -33,7 +33,7 @@
         <form method="post" action="{% url 'search' %}">
             {% csrf_token %}
             {{ search_form }}
-            <button type="submit">Search</button>
+            <button type="submit" class="btn btn-default">Search</button>
         </form>
         <div class="widget categories">
             <h3>Categories</h3>
