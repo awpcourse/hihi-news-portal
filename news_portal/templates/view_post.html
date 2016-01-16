@@ -3,7 +3,14 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    {{ post.body }}
+    <h1>{{ post.title }}</h1>
+    <div>{{ post.body }}</div>
+
+    <h2>Comments:</h2>
+    {% for comment in post.comments.all %}
+        <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
+    {% endfor %}
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -1,13 +1,13 @@
 # Create your views here.
 
-from news_portal.forms import NewsItemCommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from news_portal.models import News, Category
 from django.shortcuts import render_to_response, get_object_or_404
 from news_portal.forms import UserLoginForm
 from django.shortcuts import redirect, render
 
+from news_portal.models import News, Category, NewsComment
+from news_portal.forms import NewsItemCommentForm
 
 class LoginRequiredMixin(object):
     @classmethod
@@ -29,6 +29,7 @@ def view_category(request, slug):
         'posts': News.objects.filter(category=category)
     })
 
+@login_required
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     if request.method == 'GET':
@@ -38,13 +39,13 @@ def news_details(request, slug):
             'form': form,
         }
         return render(request, 'view_post.html', context)
-    # elif request.method == 'POST':
-    #     form = NewsItemCommentForm(request.POST)
-    #     if form.is_valid():
-    #         text = form.cleaned_data['text']
-    #         comment = NewsComment(text=text, post=post, author=request.user)
-    #         comment.save()
-    #     return redirect('news_details', slug=slug)
+    elif request.method == 'POST':
+        form = NewsItemCommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            comment = NewsComment(text=text, news_post=news_item, author=request.user)
+            comment.save()
+        return redirect('news_details', slug=slug)
 
 
 def login_view(request):
