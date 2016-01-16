@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class News(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -18,7 +19,6 @@ class News(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('news_details', None, { 'slug': self.slug })
-
 
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
@@ -47,4 +47,3 @@ class NewsComment(models.Model):
 
     def __unicode__(self):
         return u'{} @ {}'.format(self.author, self.date_added)
-
