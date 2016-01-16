@@ -15,11 +15,18 @@
 {% block content %}
 
     <div class="col-sm-8">
+        <div class="widget">
+            <form method="post">
+                {% csrf_token %}
+                {{ filter_form }}
+                <button type="submit" class="btn btn-default">Filter</button>
+            </form>
+        </div>
+
         {% if posts %}
             <div class="blog">
                 {% for post in posts %}
                     <div class="blog-item">
-                        <img class="img-responsive img-blog" src="{% static 'images/blog/blog1.jpg' %}" width="100%" alt="" />
                         <div class="blog-content">
                             <a href="{{ post.get_absolute_url }}"><h3>{{ post.title }}</h3></a>
                             <div class="entry-meta">
@@ -32,13 +39,28 @@
                         </div>
                     </div><!--/.blog-item-->
                 {% endfor %}
+
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if posts.has_previous %}
+                            <a href="?page={{ posts.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                        </span>
+
+                        {% if posts.has_next %}
+                            <a href="?page={{ posts.next_page_number }}">next</a>
+                        {% endif %}
+                    </span>
+                </div>
+
             </div><!--/.blog-->
         {% else %}
             <p>There are no news.</p>
         {% endif %}
     </div>
-
-
 
 {% endblock %}
 
@@ -46,8 +68,8 @@
     <div class="col-sm-4">
         <form method="post" action="{% url 'search' %}">
             {% csrf_token %}
-            {{ search_form.as_p }}
-            <button type="submit">Search</button>
+            {{ search_form }}
+            <button type="submit" class="btn btn-default">Search</button>
         </form>
 
         <div class="widget categories">
@@ -65,21 +87,14 @@
     </div>
 
 
-    <div class="pagination">
-    <span class="step-links">
-        {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </span>
-
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-    </div>
 
 {% endblock %}
 
+{% block scripts %}
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+</script>
+{% endblock %}

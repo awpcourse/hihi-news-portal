@@ -14,8 +14,7 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from urllib import urlencode
 from news_portal.models import News, Category, NewsComment
-from news_portal.forms import NewsItemCommentForm
-from news_portal.forms import SearchForm
+from news_portal.forms import NewsItemCommentForm, SearchForm, FilterNewsForm
 
 
 class LoginRequiredMixin(object):
@@ -49,8 +48,10 @@ def view_category(request, slug):
     paginator = Paginator(all_posts, 2)
     page = request.GET.get('page', 1)
     posts = paginator.page(page)
+    filter_form = FilterNewsForm()
     context = {
         'search_form': search_form,
+        'filter_form': filter_form,
         'category': category,
         'categories': Category.objects.all(),
         'posts': posts,
@@ -117,13 +118,16 @@ def search_view(request):
             return HttpResponseRedirect("{}?{}".format(
                     request.META['PATH_INFO'], urlencode({'q': request.POST['q']})))
 
-    form = SearchForm(request.GET)
+    search_form = SearchForm(request.GET)
+    filter_form = FilterNewsForm()
     posts = []
-    if form.is_valid():
-        q = form.cleaned_data['q']
+    if search_form.is_valid():
+        q = search_form.cleaned_data['q']
         posts = News.objects.filter(Q(title__contains=q) | Q(body__contains=q))
     context = {
-        'form': form,
+        'search_form': search_form,
+        'filter_form': filter_form,
+        'categories': Category.objects.all(),
         'posts': posts,
     }
     return render(request, 'search.html', context)
