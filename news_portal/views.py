@@ -64,7 +64,7 @@ def login_view(request):
         if user is None:
             context = {
                 'form': form,
-                'message': 'Wrong username or password!'
+                'error_message': 'Wrong username or password!'
             }
             return render(request, 'login.html', context)
         else:

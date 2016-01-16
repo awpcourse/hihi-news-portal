@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h3>Please log in</h3>
-  <p class="error">{{ message }}</p>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <h3>Please log in</h3>
+    {% if error_message %}
+        <div class="error">{{ error_message }}</div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
     <button type="submit">Log in</button>
-  </form>
+    </form>
 {% endblock %}
