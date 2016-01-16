@@ -2,6 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
 
+class SuggestPost(models.Model):
+    description = models.CharField(max_length=100,unique=True)
+    link = models.URLField(max_length=10000,unique=True)
+
+    class Meta:
+        ordering = ['-description']
+        verbose_name_plural = 'SuggestNews'
+
+    def __unicode__(self):
+        return self.description
+
+
 class News(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
