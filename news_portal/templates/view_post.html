@@ -3,19 +3,42 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <div>{{ post.body }}</div>
 
-    <h2>Comments:</h2>
-    {% for comment in post.comments.all %}
-        <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
-    {% endfor %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{{ post.title }}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div>{{ post.body }}</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            {% for comment in post.comments.all %}
+                <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
+            {% endfor %}
+        </div>
+    </div>
 
     {% if user.is_authenticated %}
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Post">
-        </form>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Add a new comment</div>
+                    <div class="panel-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-default">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
+
 {% endblock %}

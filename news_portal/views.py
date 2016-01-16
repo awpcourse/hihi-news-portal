@@ -29,7 +29,7 @@ def view_category(request, slug):
         'category': category,
         'posts': News.objects.filter(category=category)
     }
-    return render(request, 'index.html', context)
+    return render(request, 'view_category.html', context)
 
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
