@@ -13,8 +13,6 @@ class UserLoginForm(Form):
 
 
 class SearchForm(Form):
-    text = CharField(widget=Textarea(
-        attrs={'rows': 1, 'cols': '50', 'placeholder': 'Type...'}),
-        label='')
+    text = CharField(max_length=50, label='')
 
 
