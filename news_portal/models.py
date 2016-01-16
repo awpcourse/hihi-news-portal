@@ -9,6 +9,16 @@ class News(models.Model):
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey('Category')
     author = models.ForeignKey(User, editable=False)
+    count_hit = models.IntegerField(default=0)
+    def increase_count_hit(self):
+        self.count_hit += 1
+
+        """
+        select count_hit into curr_hit from news where id = 1;
+        update news set count_hit = curr_hit + 1;
+
+        update news set count_hit = count_hit + 1;
+        """
 
     class Meta:
         ordering = ['-posted']

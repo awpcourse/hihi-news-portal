@@ -9,6 +9,7 @@ from news_portal.forms import UserLoginForm
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect, render
 from django.db.models import Q
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from urllib import urlencode
 from news_portal.models import News, Category, NewsComment
@@ -21,6 +22,15 @@ class LoginRequiredMixin(object):
     def as_view(cls, **kwargs):
         view = super(LoginRequiredMixin, cls).as_view(**kwargs)
         return login_required(view)
+
+
+
+def page_hit_decorator(fun):
+    def fake_view(request, *args, **kwargs):
+        response = fun(request, *args, **kwargs)
+        print (' i can haz decorator')
+        return response
+    return fake_view
 
 def index(request):
     search_form = SearchForm()
@@ -42,9 +52,14 @@ def view_category(request, slug):
     }
     return render(request, 'view_category.html', context)
 
+@page_hit_decorator
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
-    category = Category.objects.get(title=news_item.category)
+    news_item.increase_count_hit()
+    news_item.save()
+    news_item.count_hit = F('count_hit') + 1
+    news_item.save()
+    category = news_item.category
     search_form = SearchForm()
     if request.method == 'GET':
         form = NewsItemCommentForm()
