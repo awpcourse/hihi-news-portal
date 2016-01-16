@@ -13,6 +13,5 @@ class UserLoginForm(Form):
 
 
 class SearchForm(Form):
-    text = CharField(max_length=50, label='')
-
+    q = CharField(max_length=50, label='')
 

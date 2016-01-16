@@ -16,6 +16,7 @@
                 <ul>
                 {% for post in posts %}
                     <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                     <option value="name">{{ post.title }}</option>
                 {% endfor %}
                 </ul>
             {% else %}

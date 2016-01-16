@@ -7,8 +7,7 @@
     <br/>
     Search:
      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.q }}
         <button type="submit">Search</button>
       </form>
 
