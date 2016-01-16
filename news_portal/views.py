@@ -17,17 +17,19 @@ class LoginRequiredMixin(object):
 
 
 def index(request):
-    return render_to_response('index.html', {
+    context = {
         'categories': Category.objects.all(),
         'posts': News.objects.all()[:5]
-    })
+    }
+    return render(request, 'index.html', context)
 
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    return render_to_response('view_category.html', {
+    context = {
         'category': category,
         'posts': News.objects.filter(category=category)
-    })
+    }
+    return render(request, 'index.html', context)
 
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
@@ -48,6 +50,8 @@ def news_details(request, slug):
 
 
 def login_view(request):
+    if request.user.is_authenticated():
+        return redirect('index')
     if request.method == 'GET':
         form = UserLoginForm()
         context = {'form': form}
