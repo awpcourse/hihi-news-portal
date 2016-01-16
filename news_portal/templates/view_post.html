@@ -1,4 +1,5 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content_title %}{{ post.title }}{% endblock %}
 
@@ -11,36 +12,73 @@
 {% endblock %}
 
 {% block content %}
+    <div class="col-sm-8">
+        <div class="blog">
+            <div class="blog-item">
+                <img class="img-responsive img-blog" src="{% static 'images/blog/blog2.jpg' %}" width="100%" alt="" />
+                <div class="blog-content">
+                    <h3>{{ post.title }}</h3>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div>{{ post.body }}</div>
-        </div>
-    </div>
+                    <div>{{ post.body }}</div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            {% for comment in post.comments.all %}
-                <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
-            {% endfor %}
-        </div>
-    </div>
-
-    {% if user.is_authenticated %}
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Add a new comment</div>
-                    <div class="panel-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-default">Add</button>
-                        </form>
+                    <div class="tags">
+                        <span>
+                            <i class="icon-tags"></i> Tags
+                        </span>
+                        <a class="btn btn-xs btn-primary" href="#">CSS3</a>
+                        <a class="btn btn-xs btn-primary" href="#">HTML5</a>
+                        <a class="btn btn-xs btn-primary" href="#">WordPress</a>
+                        <a class="btn btn-xs btn-primary" href="#">Joomla</a>
                     </div>
+
+                    <div class="author well">
+                        <div class="media">
+                            <div class="pull-left">
+                                <img class="avatar img-thumbnail" src="{% static 'images/blog/avatar.jpg' %}" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div class="media-heading">
+                                    <strong>John Doe</strong>
+                                </div>
+                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
+                            </div>
+                        </div>
+                    </div><!--/.author-->
+
+                    <div id="comments">
+                        <div id="comments-list">
+                            {% for comment in post.comments.all %}
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img class="avatar img-circle" src="{% static 'images/blog/avatar1.png' %}" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="well">
+                                            <div class="media-heading">
+                                                <strong>{{ comment.author }}</strong>&nbsp; <small>{{ comment.date_added }}</small>
+                                            </div>
+                                            <p>{{ comment.text }}</p>
+                                        </div>
+                                    </div>
+                                </div><!--/.media-->
+                            {% endfor %}
+                        </div><!--/#comments-list-->
+
+                        {% if user.is_authenticated %}
+                            <div id="comment-form">
+                                <h3>Leave a comment</h3>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-default">Add</button>
+                                </form>
+                            </div><!--/#comment-form-->
+                        {% endif %}
+
+                    </div><!--/#comments-->
                 </div>
-            </div>
+            </div><!--/.blog-item-->
         </div>
-    {% endif %}
+    </div><!--/.col-md-8-->
 
 {% endblock %}
