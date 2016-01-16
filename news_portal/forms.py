@@ -1,19 +1,23 @@
 from django import forms
 from django.contrib.auth.models import User  # fill in custom user info then save it
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import Form, CharField, Textarea, PasswordInput, TextInput
+from models import SuggestPost
 
-class NewsItemCommentForm(Form):
-    text = CharField(widget=Textarea(
-        attrs={'rows': 4, 'cols': 50, 'placeholder': 'Write a comment...'}),
-        label='')
 
-class UserLoginForm(Form):
-    username = CharField(max_length=30)
-    password = CharField(widget=PasswordInput)
+class NewsItemCommentForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea(
+            attrs={'rows': 4, 'cols': 50, 'placeholder': 'Write a comment...'}),
+            label='')
 
-class SearchForm(Form):
-    q = CharField(max_length=50, label='')
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
+class SearchForm(forms.Form):
+    q = forms.CharField(max_length=50, label='')
+
 
 class FilterNewsForm(Form):
     date_from = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}), required=True)
@@ -39,3 +43,21 @@ class MyRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class SuggestPostForm(forms.ModelForm):
+    description = forms.CharField(required=True)
+    link = forms.URLField(required=True)
+
+    class Meta:
+        model = SuggestPost
+        fields = ('description', 'link')
+
+    def save(self, commit=True):
+        post = super(SuggestPostForm, self).save(commit=False)
+        post.description=self.cleaned_data['description']
+        post.link=self.cleaned_data['link']
+
+        if commit:
+            post.save()
+        return post
