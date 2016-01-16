@@ -21,9 +21,9 @@ class LoginRequiredMixin(object):
         return login_required(view)
 
 def index(request):
-    form = SearchForm()
+    search_form = SearchForm()
     context = {
-        'form': form,
+        'search_form': search_form,
         'categories': Category.objects.all(),
         'posts': News.objects.all()[:5]
     }
@@ -40,9 +40,11 @@ def view_category(request, slug):
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     category = Category.objects.get(title=news_item.category)
+    search_form = SearchForm()
     if request.method == 'GET':
         form = NewsItemCommentForm()
         context = {
+            'search_form': search_form,
             'category': category,
             'post': news_item,
             'form': form,

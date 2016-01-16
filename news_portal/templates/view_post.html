@@ -74,11 +74,20 @@
                                 </form>
                             </div><!--/#comment-form-->
                         {% endif %}
-
                     </div><!--/#comments-->
                 </div>
             </div><!--/.blog-item-->
         </div>
-    </div><!--/.col-md-8-->
+    </div><!--/.col-sm-8-->
+
+    <div class="col-sm-4">
+        <div class="widget search">
+            <form method="post" action="{% url 'search' %}">
+                {% csrf_token %}
+                {{ search_form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}
