@@ -5,9 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from news_portal.forms import UserLoginForm
 from django.shortcuts import redirect, render
+from django.db.models import Q
 
 from news_portal.models import News, Category, NewsComment
 from news_portal.forms import NewsItemCommentForm
+from news_portal.forms import SearchForm
+
 
 class LoginRequiredMixin(object):
     @classmethod
@@ -17,11 +20,15 @@ class LoginRequiredMixin(object):
 
 
 def index(request):
+    form = SearchForm()
     context = {
+        'form': form,
         'categories': Category.objects.all(),
         'posts': News.objects.all()[:5]
     }
+
     return render(request, 'index.html', context)
+
 
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
@@ -31,6 +38,8 @@ def view_category(request, slug):
     }
     return render(request, 'view_category.html', context)
 
+
+@login_required
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     category = Category.objects.get(title=news_item.category)
@@ -77,3 +86,28 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+def search_view(request):
+
+    context = {}
+
+    if request.method == 'GET':
+        form = SearchForm()
+
+    elif request.method == 'POST':
+        form = SearchForm(request.POST)
+
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            # posts = News.objects.filter(title=text)
+            posts = News.objects.filter(Q(title__contains=text) | Q(body__contains=text))
+            context['posts'] = posts
+
+    context['form'] = form
+    return render(request, 'search.html', context)
+
+
+
+
+
