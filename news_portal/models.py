@@ -8,7 +8,7 @@ class SuggestPost(models.Model):
 
     class Meta:
         ordering = ['-description']
-        verbose_name_plural = 'SuggestNews'
+        verbose_name_plural = 'News suggestions'
 
     def __unicode__(self):
         return self.description
