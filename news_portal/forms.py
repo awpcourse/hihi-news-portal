@@ -19,7 +19,7 @@ class SearchForm(forms.Form):
     q = forms.CharField(max_length=50, label='')
 
 
-class FilterNewsForm(Form):
+class FilterNewsForm(forms.Form):
     date_from = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}), required=True)
     date_to = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}), required=True)
 
