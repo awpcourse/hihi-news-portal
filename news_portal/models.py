@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class News(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -32,3 +33,15 @@ class Category(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('view_category', None, { 'slug': self.slug })
+
+class UserPostComment(models.Model):
+    text = models.TextField(max_length=100)
+    date_added = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User)
+    post = models.ForeignKey(UserPost, related_name='comments')
+
+    class Meta:
+        ordering = ['date_added']
+
+    def __unicode__(self):
+        return u'{} @ {}'.format(self.author, self.date_added)
