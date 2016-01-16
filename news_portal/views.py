@@ -29,7 +29,6 @@ def view_category(request, slug):
         'posts': News.objects.filter(category=category)
     })
 
-@login_required
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     if request.method == 'GET':
