@@ -45,7 +45,10 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'index' %}">Home</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'suggest_post' %}">Suggest a news</a></li>
+                        <li><a href="{% url 'suggest_post' %}">Suggest news</a></li>
+                        {% if user.is_staff %}
+                            <li><a href="{% url 'admin:index' %}">Administration</a></li>
+                        {% endif %}
                         <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                         <li><a href="{% url 'login' %}">Login</a></li>
@@ -94,7 +97,10 @@
                     <ul class="pull-right">
                         <li><a href="{% url 'index' %}">Home</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'suggest_post' %}">Suggest a news</a></li>
+                            <li><a href="{% url 'suggest_post' %}">Suggest news</a></li>
+                            {% if user.is_staff %}
+                                <li><a href="{% url 'admin:index' %}">Administration</a></li>
+                            {% endif %}
                             <li><a href="{% url 'logout' %}">Logout</a></li>
                         {% else %}
                             <li><a href="{% url 'login' %}">Login</a></li>
