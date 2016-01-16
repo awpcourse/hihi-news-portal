@@ -19,7 +19,9 @@ from news_portal import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index),
     url(r'^news/(?P<slug>[^\.]+)', views.news_details, name='news_details'),
+    url(r'^$', views.index, name='index'),
     url(r'^categories/(?P<slug>[^\.]+)', views.view_category, name='view_category'),
+    url(r'^login/$', views.login_view, name='login'),
+    url(r'^logout/$', views.logout_view, name='logout'),
 ]
