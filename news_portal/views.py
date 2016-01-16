@@ -3,7 +3,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from forms import MyRegistrationForm
+from .forms import MyRegistrationForm, SuggestPostForm
 from django.shortcuts import render_to_response, get_object_or_404
 from news_portal.forms import UserLoginForm
 from django.views.decorators.csrf import csrf_exempt
@@ -153,3 +153,19 @@ def register_user(request):
     args['form'] = form
     print args
     return render(request, 'register_user.html', args)
+
+@login_required()
+def suggest_post(request):
+    form = None
+    if request.method == 'GET':
+        form = SuggestPostForm()
+    elif request.method == 'POST':
+        form = SuggestPostForm(request.POST)  # create form object
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    args = {}
+    args.update(csrf(request))
+    args['form'] = form
+    print args
+    return render(request, 'suggest_post.html', args)
