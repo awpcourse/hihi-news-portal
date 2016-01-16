@@ -25,7 +25,7 @@ def index(request):
     context = {
         'search_form': search_form,
         'categories': Category.objects.all(),
-        'posts': News.objects.all()[:5]
+        'posts': News.objects.all()
     }
     return render(request, 'index.html', context)
 
@@ -108,17 +108,16 @@ def search_view(request):
     return render(request, 'search.html', context)
 
 def register_user(request):
+    if request.user.is_authenticated():
+        return redirect('index')
     form = None
-    if request.method =='GET':
+    if request.method == 'GET':
         form = MyRegistrationForm()
     elif request.method == 'POST':
         form = MyRegistrationForm(request.POST)  # create form object
         if form.is_valid():
             form.save()
-            return render_to_response('index.html', {
-                'categories': Category.objects.all(),
-                'posts': News.objects.all()[:5]
-            })
+            return redirect('index')
     args = {}
     args.update(csrf(request))
     args['form'] = form
