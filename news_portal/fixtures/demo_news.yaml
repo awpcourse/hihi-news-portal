@@ -1,0 +1,97 @@
+- model: news_portal.suggestpost
+  pk: 2
+  fields: {description: O stire interesanta, link: 'http://science.hotnews.ro/stiri-terra-20729888-uragan-oceanul-atlantic-primul-format-luna-ianuarie-din-1938.htm'}
+- model: news_portal.news
+  pk: 3
+  fields: {title: 'Australian Open: Andy Murray va renunta la competitie daca sotia
+      va intra in travaliu inainte de ter', slug: andy-murray-renunta, body: 'Andy
+      Murray este cap de serie numarul doi la Australian Open, primul turneu de Grand
+      Slam al anului. Jucatorul scotian a anuntat ca va pleca de la competitia gazduita
+      de Melbourne indiferent de faza in care se va afla, daca sotia sa va intra in
+      travaliu inainte de termen, informeaza presa britanica.', posted: 2016-01-16,
+    category: 1, author: 1, count_hit: 42}
+- model: news_portal.news
+  pk: 4
+  fields: {title: 'Site-ul oficial al Australian Open: "Atitudinea Simonei Halep ne
+      arata ca Serena Williams si Maria S', slug: atitudine-simona-halep, body: 'A
+      mai ramas putin timp pana la startul Australian Open, primul turneu de Grand
+      Slam al anului. Site-ul oficial al competitiei i-a dedicat un amplu material
+      Simonei Halep, jucatoarea din Romania care "stie acum ca are sansa ei la castigarea
+      trofeului".', posted: 2016-01-16, category: 1, author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 5
+  fields: {title: Alize Cornet a castigat turneul de la Hobart -  A pierdut doar trei
+      game-uri in fata lui Eugenie Bou, slug: alize-cornet, body: 'Alize Cornet (cap
+      de serie numarul sapte) a castigat turneul WTA de la Hobart, dupa ce a invins-o
+      categoric in finala pe Eugenie Bouchard. Jucatoarea din Franta a cedat doar
+      trei game-uri, impunandu-se cu 6-1, 6-2.', posted: 2016-01-16, category: 1,
+    author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 6
+  fields: {title: 'CE Polo: Romania, duel cu Grecia in optimile competitiei', slug: ce-polo-romania-grecia,
+    body: Echipa nationala de polo a Romaniei va intalni selectionata Greciei in optimile
+      de finala ale Campionatului European de la Belgrad., posted: 2016-01-16, category: 1,
+    author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 7
+  fields: {title: 'Preview Australian Open, tabloul feminin: multe incertitudini printre
+      favorite, cine va profita?', slug: preview-australian-open, body: "Primul sfert
+      pare \u0219i cel mai \xEEnc\u0103rcat de karma: pe extreme le avem pe Serena
+      \u0219i Maria. Am zis destul deja, nu? Sharapova va avea ocazia s\u0103-\u0219i
+      \xEEnt\xE2lneasc\u0103 co\u0219marul de serviciu \xEEn sferturi acum, ofert\u0103
+      special\u0103 doar la Melbourne! DAC\u0102 ajunge acolo, vorba unui clasic australian.
+      Dac\u0103 am\xE2ndou\u0103 ajung acolo. Cele mai mari \u201Cbombardiere\u201D
+      din circuit nu au jucat deloc p\xE2n\u0103 acum, am\xE2ndou\u0103 afectate de
+      accident\u0103ri: Serena la genunchi \u0219i Maria la antebra\u021Bul care i-a
+      f\u0103cut probleme \u0219i anul trecut. Accident\u0103rile recurente sunt cu
+      prec\u0103dere importante, pentru c\u0103 acestea sunt semnale de urgen\u021B\u0103
+      \xEEntr-un sport ca tenisul, unde te \xEEngroap\u0103 uzura mai degrab\u0103
+      dec\xE2t incidentele izolate. Bine\xEEn\u021Beles, pot s\u0103 m\u0103 \xEEn\u0219el
+      \u0219i Serena \u0219i Maria s\u0103 m\u0103ture tot \xEEn cale. S\u0103 vedem
+      cine va \xEEncerca s\u0103 le opreasc\u0103.", posted: 2016-01-16, category: 1,
+    author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 8
+  fields: {title: Mergea si Bopanna au pierdut finala turneului ATP de la Sydney,
+    slug: mergea-bopanna-atp-syndey, body: 'Perechea Florin Mergea/Rohan Bopanna (Romania/India),
+      cap de serie numarul 4, a pierdut, sambata, finala turneului de 250 de puncte
+      de la Sydney, in fata cuplului Jamie Murray/Bruno Soares (Marea Britanie/Brazilia),
+      care s-a impus, scor 6-3, 7-6 (6), informeaza Mediafax.', posted: 2016-01-16,
+    category: 1, author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 9
+  fields: {title: 'Simona Halep, dupa eliminarea de la Sydney: Nu sunt foarte trista
+      ca am pierdut', slug: simona-halep-la-sydney, body: 'Jucatoarea de tenis Simona
+      Halep, locul 2 WTA, a declarat, vineri, ca nu este foarte trista ca a fost eliminata
+      in semifinale la turneul de la Sydney, subliniind ca a jucat destul de bine,
+      desi nu s-a concentrat la fiecare punct, informeaza site-ul oficial al competitiei,
+      potrivit Mediafax.', posted: 2016-01-16, category: 1, author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 10
+  fields: {title: 'Doi astronauti au iesit in spatiu, pe intuneric, pentru reparatii
+      la Statia Spatiala Internationala', slug: doi-astronauti, body: 'Astronautii
+      Tim Peake, de la Agentia Spatiala Europeana, si Tim Kopra de la NASA au iesit
+      vineri in spatiu pentru lucrari de reparatii de la Statia Spatiala Internationala.
+      Iesirile in spatiu provoaca intotdeauna ingrijorari, insa acestea au fost si
+      mai mari de aceasta data pentru ca cei doi s-au indepartat destul de mult de
+      sas: la circa 60 de metri. De asemenea, lucrarile se desfasoara pe intuneric
+      pentru ca sunt vizate panourile solare, scrie Wired.', posted: 2016-01-16, category: 3,
+    author: 1, count_hit: 0}
+- model: news_portal.news
+  pk: 11
+  fields: {title: 'Scheletul celui mai mare dinozaur descoperit pana acum, expus la
+      Muzeul American de Istorie Naturala', slug: schelet-dinozaur-mare, body: 'La
+      Muzeul American de Istorie Naturala din New York a fost expus scheletul celui
+      mai mare dinozaur descoperit vreodata. Deoarece nu are o denumire stiintifica,
+      expozantii i-au dat numele de "Titanozaur", acesta avand circa 40 de metri lungime
+      si 20 de metri latime, informeaza Mediafax.', posted: 2016-01-16, category: 3,
+    author: 1, count_hit: 0}
+- model: news_portal.category
+  pk: 1
+  fields: {title: Sport, slug: sport}
+- model: news_portal.category
+  pk: 2
+  fields: {title: Politics, slug: politics}
+- model: news_portal.category
+  pk: 3
+  fields: {title: Science, slug: science}
