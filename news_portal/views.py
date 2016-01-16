@@ -1,9 +1,11 @@
 # Create your views here.
 
-from news_portal.models import News, Category
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
+
+from news_portal.models import News, Category
+from news_portal.forms import NewsItemCommentForm
 
 def index(request):
     return render_to_response('index.html', {
@@ -22,10 +24,10 @@ def view_category(request, slug):
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
     if request.method == 'GET':
-        # form = NewsItemCommentForm()
+        form = NewsItemCommentForm()
         context = {
             'post': news_item,
-            # 'form': form,
+            'form': form,
         }
         return render(request, 'view_post.html', context)
     # elif request.method == 'POST':
