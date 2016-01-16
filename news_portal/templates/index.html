@@ -2,12 +2,6 @@
 {% block title %}Welcome to my blog{% endblock %}
 
 {% block content %}
-
-    <a href="{% url 'login' %}">Login</a>
-    <br/>
-    <a href="{% url 'logout' %}">Logout</a>
-
-
     <h2>Categories</h2>
     {% if categories %}
         <ul>

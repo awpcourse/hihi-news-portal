@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from news_portal import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
@@ -25,3 +26,5 @@ urlpatterns = [
     url(r'^categories/(?P<slug>[^\.]+)', views.view_category, name='view_category'),
     url(r'^news/(?P<slug>[^\.]+)', views.news_details, name='news_details'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
