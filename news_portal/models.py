@@ -17,7 +17,7 @@ class News(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('view_post', None, { 'slug': self.slug })
+        return ('news_details', None, { 'slug': self.slug })
 
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
@@ -34,11 +34,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return ('view_category', None, { 'slug': self.slug })
 
-class UserPostComment(models.Model):
+class NewsComment(models.Model):
     text = models.TextField(max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User)
-    post = models.ForeignKey(UserPost, related_name='comments')
+    news_post = models.ForeignKey(News, related_name='comments')
 
     class Meta:
         ordering = ['date_added']

@@ -20,6 +20,6 @@ from news_portal import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
-    url(r'^news/(?P<slug>[^\.]+)', views.view_post, name='view_post'),
+    url(r'^news/(?P<slug>[^\.]+)', views.news_details, name='news_details'),
     url(r'^categories/(?P<slug>[^\.]+)', views.view_category, name='view_category'),
 ]
