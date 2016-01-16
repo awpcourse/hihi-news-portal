@@ -66,10 +66,6 @@ def view_category(request, slug):
 @page_hit_decorator
 def news_details(request, slug):
     news_item = News.objects.get(slug=slug)
-    news_item.increase_count_hit()
-    news_item.save()
-    news_item.count_hit = F('count_hit') + 1
-    news_item.save()
     category = news_item.category
     search_form = SearchForm()
     if request.method == 'GET':
@@ -81,7 +77,11 @@ def news_details(request, slug):
             'post': news_item,
             'form': form,
         }
-        return render(request, 'view_post.html', context)
+        out = render(request, 'view_post.html', context)
+        news_item.count_hit = F('count_hit') + 1
+        news_item.save()
+        return out
+
     elif request.method == 'POST':
         form = NewsItemCommentForm(request.POST)
         if form.is_valid():

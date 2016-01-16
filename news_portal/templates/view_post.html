@@ -19,6 +19,13 @@
                 <div class="blog-content">
                     <h3>{{ post.title }}</h3>
 
+                    <div class="entry-meta">
+                        <span><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
+                        <span><i class="icon-folder-close"></i> <a href="#">{{ post.category }}</a></span>
+                        <span><i class="icon-calendar"></i> {{ post.posted }}</span>
+                        <span><i class="icon-anchor"></i> {{ post.count_hit }} views</span>
+                    </div>
+
                     <p>{{ post.body }}</p>
 
                     <div class="author well">

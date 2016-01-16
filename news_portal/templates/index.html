@@ -15,6 +15,7 @@
                                 <span><i class="icon-user"></i> <a href="#">{{ post.author }}</a></span>
                                 <span><i class="icon-folder-close"></i> <a href="#">{{ post.category }}</a></span>
                                 <span><i class="icon-calendar"></i> {{ post.posted }}</span>
+                                <span><i class="icon-anchor"></i> {{ post.count_hit }} views</span>
                             </div>
                             <p>{{ post.body }}</p>
                             <a class="btn btn-default" href="{{ post.get_absolute_url }}">Read More <i class="icon-angle-right"></i></a>
