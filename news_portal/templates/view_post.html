@@ -16,7 +16,6 @@
     <div class="col-sm-8">
         <div class="blog">
             <div class="blog-item">
-                <img class="img-responsive img-blog" src="{% static 'images/blog/blog2.jpg' %}" width="100%" alt="" />
                 <div class="blog-content">
                     <h3>{{ post.title }}</h3>
 
@@ -37,6 +36,7 @@
                     </div><!--/.author-->
 
                     <div id="comments">
+                        <h4>Comments:</h4>
                         <div id="comments-list">
                             {% for comment in post.comments.all %}
                                 <div class="media">
@@ -57,13 +57,18 @@
 
                         {% if user.is_authenticated %}
                             <div id="comment-form">
-                                <h3>Leave a comment</h3>
+                                <h4>Leave a comment</h4>
                                 <form method="post">
                                     {% csrf_token %}
-                                    {{ form.as_p }}
+                                    {{ form }}
                                     <button type="submit" class="btn btn-default">Add</button>
                                 </form>
                             </div><!--/#comment-form-->
+                        {% else %}
+                            <div class="alert alert-info alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <a href="{% url 'login' %}">Log in</a> to post comments
+                            </div>
                         {% endif %}
                     </div><!--/#comments-->
                 </div>
@@ -77,7 +82,7 @@
         <div class="widget search">
             <form method="post" action="{% url 'search' %}">
                 {% csrf_token %}
-                {{ search_form.as_p }}
+                {{ search_form }}
                 <button type="submit">Search</button>
             </form>
         </div>
