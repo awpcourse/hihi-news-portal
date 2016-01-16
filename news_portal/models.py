@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
+
 
 
 class News(models.Model):
@@ -8,6 +10,7 @@ class News(models.Model):
     body = models.TextField()
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey('Category')
+    author = models.ForeignKey(User, editable=False)
 
     class Meta:
         ordering = ['-posted']
@@ -19,6 +22,11 @@ class News(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('news_details', None, { 'slug': self.slug })
+
+class NewsAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user
+        obj.save()
 
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)

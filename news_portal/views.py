@@ -31,8 +31,11 @@ def index(request):
 
 def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
+    search_form = SearchForm()
     context = {
+        'search_form': search_form,
         'category': category,
+        'categories': Category.objects.all(),
         'posts': News.objects.filter(category=category)
     }
     return render(request, 'view_category.html', context)
@@ -46,6 +49,7 @@ def news_details(request, slug):
         context = {
             'search_form': search_form,
             'category': category,
+            'categories': Category.objects.all(),
             'post': news_item,
             'form': form,
         }

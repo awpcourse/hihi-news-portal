@@ -38,7 +38,7 @@
                             </div>
                             <div class="media-body">
                                 <div class="media-heading">
-                                    <strong>John Doe</strong>
+                                    <strong>{{ post.author }}</strong>
                                 </div>
                                 <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.</p>
                             </div>
@@ -90,5 +90,18 @@
                 <button type="submit">Search</button>
             </form>
         </div>
-    </div>
+
+        <div class="widget categories">
+            <h3>Categories</h3>
+            {% if categories %}
+                <ul class="arrow">
+                {% for category in categories %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no categories.</p>
+            {% endif %}
+        </div><!--/.categories-->
+    </div><!--/.col-sm-4-->
 {% endblock %}
