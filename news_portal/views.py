@@ -27,7 +27,7 @@ def index(request):
     context = {
         'search_form': search_form,
         'categories': Category.objects.all(),
-        'posts': News.objects.all()
+        'posts': News.objects.all()[:5]
     }
     return render(request, 'index.html', context)
 

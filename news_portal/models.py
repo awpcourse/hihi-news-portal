@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
 
-
-
 class News(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -25,8 +23,9 @@ class News(models.Model):
 
 class NewsAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
-        obj.author = request.user
-        obj.save()
+        if not change and not obj.author:
+            obj.author = request.user
+            obj.save()
 
 class Category(models.Model):
     title = models.CharField(max_length=100, db_index=True)
