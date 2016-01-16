@@ -45,9 +45,14 @@ def view_category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     search_form = SearchForm()
     all_posts = News.objects.filter(category=category)
-    paginator = Paginator(all_posts, 2)
+    paginator = Paginator(all_posts, 5)
     page = request.GET.get('page', 1)
-    posts = paginator.page(page)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     filter_form = FilterNewsForm()
     context = {
         'search_form': search_form,
